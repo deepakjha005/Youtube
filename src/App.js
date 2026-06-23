@@ -1,23 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import { useSelector } from "react-redux";
+import Header from "./components/Header";
+import MainVideoContainer from "./components/MainVideoContainer";
+import SideBar from "./components/SideBar";
 
 function App() {
+  const showSideBar = useSelector((store) => store.app.showHamburger);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="w-screen bg-white h-screen text-black flex-1 overflow-x-hidden">
+      <Header />
+      <div className="flex justify-start">
+        {showSideBar && <SideBar />}
+        <MainVideoContainer />
+      </div>
     </div>
   );
 }
