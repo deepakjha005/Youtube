@@ -1,20 +1,45 @@
 import TileComponent from "./TileComponent";
-export const hamburgerTitleOneSection = ["Home", "Shorts", "Subscriptions"];
-export const hamburgerTitleTwoSection = ["History", "Playlist", "Watch later"];
-export const hamburgerTitleThreeSection = ["Music", "Movies", "Shopping"];
+export const hTSection1 = ["Home", "Shorts", "Subscriptions"];
+export const hTSection2 = ["History", "Playlist", "Watch later"];
+export const hTSection3 = ["Music", "Movies", "Shopping"];
+export const hTSection4 = ["Music", "Movies", "Shopping"];
+export const hTSection5 = ["Music", "Movies", "Shopping"];
+export const hTSection6 = ["Music", "Movies", "Shopping"];
+export const hTSection7 = ["Music", "Movies", "Shopping"];
+export const hTSection8 = ["Music", "Movies", "Shopping"];
 
 const SideBar = () => {
   return (
-    <div className="h-screen w-[10%] border-gray-200 border-r-2 ">
-      {hamburgerTitleOneSection.map((title) => (
+    <div className=" w-[200px]  overflow-y-auto h-full ">
+      {hTSection1.map((title) => (
         <TileComponent title={title} />
       ))}
       <div className="bg-gray-100 h-0.5"></div>
-      {hamburgerTitleTwoSection.map((title) => (
+      {hTSection2.map((title) => (
         <TileComponent title={title} />
       ))}
       <div className="bg-gray-100 h-0.5"></div>
-      {hamburgerTitleThreeSection.map((title) => (
+      {hTSection3.map((title) => (
+        <TileComponent title={title} />
+      ))}
+      <div className="bg-gray-100 h-0.5"></div>
+      {hTSection4.map((title) => (
+        <TileComponent title={title} />
+      ))}
+      <div className="bg-gray-100 h-0.5"></div>
+      {hTSection5.map((title) => (
+        <TileComponent title={title} />
+      ))}
+      <div className="bg-gray-100 h-0.5"></div>
+      {hTSection6.map((title) => (
+        <TileComponent title={title} />
+      ))}
+      <div className="bg-gray-100 h-0.5"></div>
+      {hTSection7.map((title) => (
+        <TileComponent title={title} />
+      ))}
+      <div className="bg-gray-100 h-0.5"></div>
+      {hTSection8.map((title) => (
         <TileComponent title={title} />
       ))}
     </div>

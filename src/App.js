@@ -9,9 +9,11 @@ function App() {
   return (
     <div className="w-screen bg-white h-screen text-black flex-1 overflow-x-hidden">
       <Header />
-      <div className="flex justify-start">
+      <div className="flex justify-start overflow-hidden h-[calc(100vh-56px)]">
         {showSideBar && <SideBar />}
-        <MainVideoContainer />
+        <div className="flex-1 overflow-y-auto">
+          <MainVideoContainer />
+        </div>
       </div>
     </div>
   );

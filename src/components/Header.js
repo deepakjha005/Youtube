@@ -8,8 +8,8 @@ const Header = () => {
   };
 
   return (
-    <div className="flex justify-between px-4 py-2 bg-white shadow-sm">
-      <div className="flex ">
+    <div className="flex justify-between px-4 p-2  w-screen h-28 ">
+      <div className="flex justify-center items-center">
         <div className=" w-16" onClick={handleHamburgerClick}>
           <img
             src="/hamburger_.png"
@@ -24,15 +24,11 @@ const Header = () => {
           placeholder="Search"
           className="rounded-l-full w-[60%] h-10 placeholder-gray-400 px-5 border-gray-400 border"
         />
-        <div className="bg-gray-100 border-gray-200 border rounded-r-full">
-          <img
-            src="/search.png"
-            alt="search"
-            className="h-10 w-12 rounded-r-full bg-gray-400"
-          />
-        </div>
+        <button className="bg-gray-100 border-gray-200 p-2 border rounded-r-full hover:bg-gray-200">
+          Search
+        </button>
       </div>
-      <div>
+      <div className=" flex justify-center items-center">
         <img
           src="https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg"
           alt="user"
