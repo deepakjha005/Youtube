@@ -1,11 +1,19 @@
+import { useNavigate } from "react-router-dom";
 import { formatDuration, formatViews } from "../utils.js/constants";
 
 const VideoCard = ({ items }) => {
   const { thumbnails, channelTitle, title } = items?.snippet;
-  const { statistics, contentDetails } = items;
+  const { statistics, contentDetails, id } = items;
+  const navigate = useNavigate();
 
+  const handleWatchVideo = () => {
+    navigate("/browse/" + id);
+  };
   return (
-    <div className="hover:bg-red-50 cursor-pointer rounded-b-lg ">
+    <div
+      className="hover:bg-red-50 cursor-pointer rounded-b-lg "
+      onClick={handleWatchVideo}
+    >
       <div className="relative">
         <img
           src={thumbnails?.medium?.url}

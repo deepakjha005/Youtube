@@ -2,12 +2,11 @@ import useVideoContainer from "../hooks/useVideoContainer";
 import VideoCard from "./VideoCard";
 
 const MainVideoContainer = () => {
-  const { videos } = useVideoContainer();
-  console.log(videos, "videos");
+  const { videoList } = useVideoContainer();
   return (
     <div className="h-screen flex flex-wrap gap-4 justify-center overflow-y-auto">
-      {videos?.map((video) => (
-        <VideoCard key={video} items={video} />
+      {videoList?.map((video) => (
+        <VideoCard key={video?.id} items={video} />
       ))}
     </div>
   );

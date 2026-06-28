@@ -1,8 +1,10 @@
-const API_KEY = "AIzaSyANV7Gb5vwnVAFRrAefWrIGvGMvp1dOAsA";
+export const API_KEY = "AIzaSyANV7Gb5vwnVAFRrAefWrIGvGMvp1dOAsA";
 
 export const YOU_TUBE_VIDEOS_API =
   "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=46&regionCode=IN&key=" +
   API_KEY;
+export const YOU_TUBE_LIVE_CHAT_API =
+  "https://www.googleapis.com/youtube/v3/liveChat/messages/&key=" + API_KEY;
 
 export const formatDuration = (duration) => {
   const match = duration?.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
@@ -32,3 +34,6 @@ export const formatViews = (count) => {
 
   return count.toString();
 };
+
+export const USER_ICON =
+  "https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg";
