@@ -1,14 +1,6 @@
 import { USER_ICON } from "../utils.js/constants";
 
 const LiveCommentComponent = () => {
-  // useEffect(() => {
-  //   fetchLiveComment();
-  // }, []);
-  // const fetchLiveComment = async () => {
-  //   const data = await fetch(YOU_TUBE_LIVE_CHAT_API);
-  //   const json = await data.json();
-  //   console.log(json, "json");
-  // };
   return (
     <div className="py-2">
       <div className="flex justify-start items-center overflow-hidden break-words">

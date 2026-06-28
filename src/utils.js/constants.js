@@ -4,7 +4,7 @@ export const YOU_TUBE_VIDEOS_API =
   "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=46&regionCode=IN&key=" +
   API_KEY;
 export const YOU_TUBE_LIVE_CHAT_API =
-  "https://www.googleapis.com/youtube/v3/liveChat/messages/&key=" + API_KEY;
+  "https://api.openai.com/v1/chat/completions";
 
 export const formatDuration = (duration) => {
   const match = duration?.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);

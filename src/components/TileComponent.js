@@ -7,7 +7,6 @@ const TileComponent = ({ title }) => {
   const resetStore = () => {
     // dispatch
     if (title === "Reset Store") {
-      console.log("clicked");
       dispatch(resetAction());
       return;
     }

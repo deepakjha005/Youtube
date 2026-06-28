@@ -1,7 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchLiveChat } from "../redux/thunk/fetchLiveChatThunk";
 import LiveCommentComponent from "./LiveCommentComponent";
 
 const LiveCommentsSection = () => {
+  const liveChatData = useSelector((store) => store?.liveChat);
+  console.log(liveChatData, "liveChatdata");
+  const dispatch = useDispatch();
+  useEffect(() => {
+    fetchLiveComment();
+  }, []);
+  const fetchLiveComment = async () => {
+    dispatch(fetchLiveChat());
+  };
   const array = [1, 2, 3, 4, 5, "", "", "", "", "", "", ""];
   const [showLiveChat, setShowLiveChat] = useState(false);
   const handleCloseLiveChat = () => {

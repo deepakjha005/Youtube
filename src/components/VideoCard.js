@@ -11,7 +11,7 @@ const VideoCard = ({ items }) => {
   };
   return (
     <div
-      className="hover:bg-red-50 cursor-pointer rounded-b-lg "
+      className="hover:bg-red-50 cursor-pointer rounded-b-lg  w-[310px] overflow-hidden break-words"
       onClick={handleWatchVideo}
     >
       <div className="relative">
@@ -24,7 +24,7 @@ const VideoCard = ({ items }) => {
           {formatDuration(contentDetails?.duration ?? "")}
         </h1>
       </div>
-      <div className="pt-1 w-[320px] overflow-hidden break-words">
+      <div className="pt-1 w-[320px] overflow-hidden break-words px-1">
         <h1 className="text-xl line-clamp-2">{title}</h1>
         <h1 className="text-gray-500 text-sm clamp-2">{channelTitle}</h1>
         <h1 className="text-gray-500 text-sm">

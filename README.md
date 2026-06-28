@@ -1,70 +1,177 @@
-# Getting Started with Create React App
+# Middle ware
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# what?
 
-## Available Scripts
+- A middleware is a function that runs between dispatching an action and the reducer receiving that action.
 
-In the project directory, you can run:
+- flow
 
-### `npm start`
+  dispatch(action)
+  ↓
+  Middleware
+  ↓
+  Reducer
+  ↓
+  Store Updated
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+  Middleware gets a chance to:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Read the action
+- Modify the action
+- Stop the action
+- Dispatch another action
+- Perform side effects (API calls, logging, analytics)
 
-### `npm test`
+# why?
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Reducers must be pure functions.
+❌ Not allowed in reducers:
+example -
+reducer(state, action) {
+fetch("/api/users"); // Side effect
+}
 
-### `npm run build`
+Reducers should only calculate the next state.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+So things like:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+API calls
+Logging
+Analytics
+Error reporting
+Authentication checks
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+are handled by middleware.
 
-### `npm run eject`
+- Example
+  Suppose:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+dispatch(fetchUsers());
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 1.Without middleware:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+dispatch
+↓
+reducer
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Reducer cannot make API calls.
 
-## Learn More
+## 2.With middleware:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+dispatch(fetchUsers())
+↓
+Middleware
+↓
+Call API
+↓
+Dispatch success/failure action
+↓
+Reducer
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# how?
 
-### Code Splitting
+const loggerMiddleware = () => (next) => (action) => {
+console.log("Dispatching:", action.type);
+return next(action);
+};
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+const store = configureStore({
+reducer: callbackAction,
+middleware: (getDefaultMiddleware) =>
+getDefaultMiddleware().concat(loggerMiddleware),
+});
 
-### Analyzing the Bundle Size
+## createAsyncThunk
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- Why createAsyncThunk?
 
-### Making a Progressive Web App
+Reducers must be synchronous and cannot make API calls.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+So, Redux Toolkit provides createAsyncThunk() to handle asynchronous operations like fetching data from an API.
 
-### Advanced Configuration
+createAsyncThunk
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Used to perform async operations (mainly API calls).
 
-### Deployment
+# Syntax:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+export const fetchUsers = createAsyncThunk(
+"users/fetchUsers",
+async () => {
+const response = await fetch("/api/users");
+return response.json();
+}
+);
+It automatically creates three actions:
+pending → API request started.
+fulfilled → API request succeeded.
+rejected → API request failed.
 
-### `npm run build` fails to minify
+The value returned from the async function becomes action.payload in the fulfilled action.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+extraReducers
+
+Used to handle actions created outside the slice, such as actions from createAsyncThunk.
+
+# Example:
+
+extraReducers: (builder) => {
+builder
+.addCase(fetchUsers.pending, (state) => {
+state.loading = true;
+})
+.addCase(fetchUsers.fulfilled, (state, action) => {
+state.loading = false;
+state.users = action.payload;
+})
+.addCase(fetchUsers.rejected, (state) => {
+state.loading = false;
+state.error = "API Failed";
+});
+}
+
+## API Flow
+
+dispatch(fetchUsers())
+↓
+pending
+↓
+API Call
+↓
+Success? -------- No?
+↓ ↓
+fulfilled rejected
+↓ ↓
+Update Data Update Error
+↓
+React UI Re-renders
+reducers vs extraReducers
+reducers extraReducers
+Handles actions created inside the slice. Handles actions created outside the slice (e.g., createAsyncThunk).
+Key Points
+createAsyncThunk → Handles API calls.
+pending → Loading starts.
+fulfilled → Save API response.
+rejected → Save error.
+extraReducers → Handles thunk actions.
+action.payload → Contains the data returned by the API.
+Easy way to remember
+createAsyncThunk → Makes API Call
+↓
+pending → Loading
+fulfilled → Success + Data
+rejected → Error
+↓
+extraReducers updates the Redux state.
+
+## I recommend learning these topics in this order:
+
+✅ createAsyncThunk (what it is and why we need it)
+✅ extraReducers
+✅ builder.addCase
+✅ pending, fulfilled, rejected
+✅ Passing arguments to createAsyncThunk
+✅ Error handling with rejectWithValue
+✅ unwrap() and awaiting dispatched thunks
+✅ API cancellation with AbortController
+✅ When to use createAsyncThunk vs RTK Query (the modern RTK approach)
