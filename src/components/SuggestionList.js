@@ -6,7 +6,6 @@ const SuggestionList = () => {
   const searchResultList = useSelector((store) => store.video?.suggestionList);
   const navigate = useNavigate();
   const handleWatchVideo = (id) => {
-    console.log("called");
     navigate("/browse/" + id);
   };
   return (

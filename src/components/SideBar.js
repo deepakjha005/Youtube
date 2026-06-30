@@ -1,6 +1,6 @@
 import TileComponent from "./TileComponent";
 export const hTSection1 = ["Home", "Shorts", "Reset Store"];
-export const hTSection2 = ["History", "Playlist", "Watch later"];
+export const hTSection2 = ["History", "Playlist", "Hooks Concepts"];
 
 const SideBar = () => {
   return (

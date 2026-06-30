@@ -1,13 +1,23 @@
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { resetAction } from "../redux/store";
 
 const TileComponent = ({ title }) => {
   const dispatch = useDispatch();
+  const navigation = useNavigate();
 
   const resetStore = () => {
     // dispatch
     if (title === "Reset Store") {
       dispatch(resetAction());
+      return;
+    }
+    if (title === "Hooks Concepts") {
+      navigation("/hooks");
+      return;
+    }
+    if (title === "Home") {
+      navigation("/");
       return;
     }
   };
